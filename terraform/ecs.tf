@@ -18,12 +18,18 @@ resource "aws_ecs_task_definition" "krista" {
           "awslogs-stream-prefix": "ecs"
         }
       },
-      "image": "720068558948.dkr.ecr.us-east-2.amazonaws.com/hello-world:s3",
-      "name": "hello-world",
+       "portMappings": [
+        {
+          "hostPort": 80,
+          "protocol": "tcp",
+          "containerPort": 80
+        }
+      ],
+      "image": "720068558948.dkr.ecr.us-east-2.amazonaws.com/${var.repo_name}:latest",
+      "name": "kp-test",
       "cpu": 1,
       "memory": 512,
-      "essential": true,
-      "command": ["python", "/mnt/deploy.py"]
+      "essential": true
     }
   ]
 DEFINITION
